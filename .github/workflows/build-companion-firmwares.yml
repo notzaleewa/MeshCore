@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: companion-firmwares
-          path: /home/runner/work/MeshCore/MeshCore/.pio/build/Heltec_v3_sensor/
+          path: /home/runner/work/MeshCore/MeshCore/.pio/build/Heltec_v3_companion_radio_ble/
 
       - name: Create Release
         uses: softprops/action-gh-release@v2

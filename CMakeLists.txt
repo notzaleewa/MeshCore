@@ -1,0 +1,525 @@
+cmake_minimum_required(VERSION 4.0)
+project(MeshCore)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(arch/esp32/AsyncElegantOTA/src)
+include_directories(arch/stm32/Adafruit_LittleFS_stm32/src)
+include_directories(arch/stm32/Adafruit_LittleFS_stm32/src/littlefs)
+include_directories(examples/companion_radio)
+include_directories(examples/companion_radio/ui-new)
+include_directories(examples/companion_radio/ui-orig)
+include_directories(examples/simple_repeater)
+include_directories(examples/simple_room_server)
+include_directories(examples/simple_sensor)
+include_directories(lib/ed25519)
+include_directories(lib/nrf52)
+include_directories(lib/nrf52/include)
+include_directories(lib/nrf52/include/nrf52)
+include_directories(lib/nrf52/s140_nrf52_7.3.0_API)
+include_directories(lib/nrf52/s140_nrf52_7.3.0_API/include)
+include_directories(lib/nrf52/s140_nrf52_7.3.0_API/include/nrf52)
+include_directories(src)
+include_directories(src/helpers)
+include_directories(src/helpers/bridges)
+include_directories(src/helpers/esp32)
+include_directories(src/helpers/nrf52)
+include_directories(src/helpers/radiolib)
+include_directories(src/helpers/sensors)
+include_directories(src/helpers/stm32)
+include_directories(src/helpers/ui)
+include_directories(variants/ebyte_eora_s3)
+include_directories(variants/generic-e22)
+include_directories(variants/generic_espnow)
+include_directories(variants/heltec_ct62)
+include_directories(variants/heltec_e213)
+include_directories(variants/heltec_e290)
+include_directories(variants/heltec_mesh_solar)
+include_directories(variants/heltec_t114)
+include_directories(variants/heltec_t190)
+include_directories(variants/heltec_tracker)
+include_directories(variants/heltec_tracker_v2)
+include_directories(variants/heltec_v2)
+include_directories(variants/heltec_v3)
+include_directories(variants/heltec_v4)
+include_directories(variants/heltec_wireless_paper)
+include_directories(variants/ikoka_nano_nrf)
+include_directories(variants/ikoka_stick_nrf)
+include_directories(variants/lilygo_t3s3)
+include_directories(variants/lilygo_t3s3_sx1276)
+include_directories(variants/lilygo_tbeam_supreme_SX1262)
+include_directories(variants/lilygo_tbeam_SX1262)
+include_directories(variants/lilygo_tbeam_SX1276)
+include_directories(variants/lilygo_tdeck)
+include_directories(variants/lilygo_techo)
+include_directories(variants/lilygo_techo_lite)
+include_directories(variants/lilygo_tlora_c6)
+include_directories(variants/lilygo_tlora_v2_1)
+include_directories(variants/mesh_pocket)
+include_directories(variants/meshadventurer)
+include_directories(variants/minewsemi_me25ls01)
+include_directories(variants/nano_g2_ultra)
+include_directories(variants/promicro)
+include_directories(variants/rak3x72)
+include_directories(variants/rak4631)
+include_directories(variants/rak_wismesh_tag)
+include_directories(variants/rpi_picow)
+include_directories(variants/sensecap_indicator-espnow)
+include_directories(variants/sensecap_solar)
+include_directories(variants/station_g2)
+include_directories(variants/t1000-e)
+include_directories(variants/tenstar_c3)
+include_directories(variants/thinknode_m1)
+include_directories(variants/thinknode_m2)
+include_directories(variants/tiny_relay)
+include_directories(variants/waveshare_rp2040_lora)
+include_directories(variants/wio-e5-dev)
+include_directories(variants/wio-e5-mini)
+include_directories(variants/wio-tracker-l1)
+include_directories(variants/wio_wm1110)
+include_directories(variants/xiao_c3)
+include_directories(variants/xiao_c6)
+include_directories(variants/xiao_nrf52)
+include_directories(variants/xiao_rp2040)
+include_directories(variants/xiao_s3_wio)
+
+add_executable(MeshCore
+        arch/esp32/AsyncElegantOTA/src/AsyncElegantOTA.cpp
+        arch/esp32/AsyncElegantOTA/src/AsyncElegantOTA.h
+        arch/esp32/AsyncElegantOTA/src/elegantWebpage.h
+        arch/esp32/AsyncElegantOTA/src/Hash.h
+        arch/stm32/Adafruit_LittleFS_stm32/src/littlefs/lfs.c
+        arch/stm32/Adafruit_LittleFS_stm32/src/littlefs/lfs.h
+        arch/stm32/Adafruit_LittleFS_stm32/src/littlefs/lfs_util.c
+        arch/stm32/Adafruit_LittleFS_stm32/src/littlefs/lfs_util.h
+        arch/stm32/Adafruit_LittleFS_stm32/src/Adafruit_LittleFS.cpp
+        arch/stm32/Adafruit_LittleFS_stm32/src/Adafruit_LittleFS.h
+        arch/stm32/Adafruit_LittleFS_stm32/src/Adafruit_LittleFS_File.cpp
+        arch/stm32/Adafruit_LittleFS_stm32/src/Adafruit_LittleFS_File.h
+        examples/companion_radio/ui-new/icons.h
+        examples/companion_radio/ui-new/UITask.cpp
+        examples/companion_radio/ui-new/UITask.h
+        examples/companion_radio/ui-orig/Button.cpp
+        examples/companion_radio/ui-orig/Button.h
+        examples/companion_radio/ui-orig/UITask.cpp
+        examples/companion_radio/ui-orig/UITask.h
+        examples/companion_radio/AbstractUITask.h
+        examples/companion_radio/DataStore.cpp
+        examples/companion_radio/DataStore.h
+        examples/companion_radio/main.cpp
+        examples/companion_radio/MyMesh.cpp
+        examples/companion_radio/MyMesh.h
+        examples/companion_radio/NodePrefs.h
+        examples/simple_repeater/main.cpp
+        examples/simple_repeater/MyMesh.cpp
+        examples/simple_repeater/MyMesh.h
+        examples/simple_repeater/RateLimiter.h
+        examples/simple_repeater/UITask.cpp
+        examples/simple_repeater/UITask.h
+        examples/simple_room_server/main.cpp
+        examples/simple_room_server/MyMesh.cpp
+        examples/simple_room_server/MyMesh.h
+        examples/simple_room_server/UITask.cpp
+        examples/simple_room_server/UITask.h
+        examples/simple_secure_chat/main.cpp
+        examples/simple_sensor/main.cpp
+        examples/simple_sensor/SensorMesh.cpp
+        examples/simple_sensor/SensorMesh.h
+        examples/simple_sensor/TimeSeriesData.cpp
+        examples/simple_sensor/TimeSeriesData.h
+        examples/simple_sensor/UITask.cpp
+        examples/simple_sensor/UITask.h
+        lib/ed25519/add_scalar.c
+        lib/ed25519/ed_25519.h
+        lib/ed25519/fe.c
+        lib/ed25519/fe.h
+        lib/ed25519/fixedint.h
+        lib/ed25519/ge.c
+        lib/ed25519/ge.h
+        lib/ed25519/key_exchange.c
+        lib/ed25519/keypair.c
+        lib/ed25519/precomp_data.h
+        lib/ed25519/sc.c
+        lib/ed25519/sc.h
+        lib/ed25519/seed.c
+        lib/ed25519/sha512.c
+        lib/ed25519/sha512.h
+        lib/ed25519/sign.c
+        lib/ed25519/verify.c
+        lib/nrf52/include/nrf52/nrf_mbr.h
+        lib/nrf52/include/ble.h
+        lib/nrf52/include/ble_err.h
+        lib/nrf52/include/ble_gap.h
+        lib/nrf52/include/ble_gatt.h
+        lib/nrf52/include/ble_gattc.h
+        lib/nrf52/include/ble_gatts.h
+        lib/nrf52/include/ble_hci.h
+        lib/nrf52/include/ble_l2cap.h
+        lib/nrf52/include/ble_ranges.h
+        lib/nrf52/include/ble_types.h
+        lib/nrf52/include/nrf_error.h
+        lib/nrf52/include/nrf_error_sdm.h
+        lib/nrf52/include/nrf_error_soc.h
+        lib/nrf52/include/nrf_nvic.h
+        lib/nrf52/include/nrf_sdm.h
+        lib/nrf52/include/nrf_soc.h
+        lib/nrf52/include/nrf_svc.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/nrf52/nrf_mbr.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/ble.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/ble_err.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/ble_gap.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/ble_gatt.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/ble_gattc.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/ble_gatts.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/ble_hci.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/ble_l2cap.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/ble_ranges.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/ble_types.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/nrf_error.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/nrf_error_sdm.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/nrf_error_soc.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/nrf_nvic.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/nrf_sdm.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/nrf_soc.h
+        lib/nrf52/s140_nrf52_7.3.0_API/include/nrf_svc.h
+        src/helpers/bridges/BridgeBase.cpp
+        src/helpers/bridges/BridgeBase.h
+        src/helpers/bridges/ESPNowBridge.cpp
+        src/helpers/bridges/ESPNowBridge.h
+        src/helpers/bridges/RS232Bridge.cpp
+        src/helpers/bridges/RS232Bridge.h
+        src/helpers/esp32/ESPNOWRadio.cpp
+        src/helpers/esp32/ESPNOWRadio.h
+        src/helpers/esp32/SerialBLEInterface.cpp
+        src/helpers/esp32/SerialBLEInterface.h
+        src/helpers/esp32/SerialWifiInterface.cpp
+        src/helpers/esp32/SerialWifiInterface.h
+        src/helpers/esp32/TBeamBoard.cpp
+        src/helpers/esp32/TBeamBoard.h
+        src/helpers/nrf52/SerialBLEInterface.cpp
+        src/helpers/nrf52/SerialBLEInterface.h
+        src/helpers/radiolib/CustomLLCC68.h
+        src/helpers/radiolib/CustomLLCC68Wrapper.h
+        src/helpers/radiolib/CustomLR1110.h
+        src/helpers/radiolib/CustomLR1110Wrapper.h
+        src/helpers/radiolib/CustomSTM32WLx.h
+        src/helpers/radiolib/CustomSTM32WLxWrapper.h
+        src/helpers/radiolib/CustomSX1262.h
+        src/helpers/radiolib/CustomSX1262Wrapper.h
+        src/helpers/radiolib/CustomSX1268.h
+        src/helpers/radiolib/CustomSX1268Wrapper.h
+        src/helpers/radiolib/CustomSX1276.h
+        src/helpers/radiolib/CustomSX1276Wrapper.h
+        src/helpers/radiolib/RadioLibWrappers.cpp
+        src/helpers/radiolib/RadioLibWrappers.h
+        src/helpers/sensors/EnvironmentSensorManager.cpp
+        src/helpers/sensors/EnvironmentSensorManager.h
+        src/helpers/sensors/LocationProvider.h
+        src/helpers/sensors/LPPDataHelpers.h
+        src/helpers/sensors/MicroNMEALocationProvider.h
+        src/helpers/stm32/InternalFileSystem.cpp
+        src/helpers/stm32/InternalFileSystem.h
+        src/helpers/stm32/STM32Board.h
+        src/helpers/ui/buzzer.cpp
+        src/helpers/ui/buzzer.h
+        src/helpers/ui/DisplayDriver.h
+        src/helpers/ui/E213Display.cpp
+        src/helpers/ui/E213Display.h
+        src/helpers/ui/E290Display.cpp
+        src/helpers/ui/E290Display.h
+        src/helpers/ui/GenericVibration.cpp
+        src/helpers/ui/GenericVibration.h
+        src/helpers/ui/GxEPDDisplay.cpp
+        src/helpers/ui/GxEPDDisplay.h
+        src/helpers/ui/LGFXDisplay.cpp
+        src/helpers/ui/LGFXDisplay.h
+        src/helpers/ui/MomentaryButton.cpp
+        src/helpers/ui/MomentaryButton.h
+        src/helpers/ui/NullDisplayDriver.h
+        src/helpers/ui/OLEDDisplay.cpp
+        src/helpers/ui/OLEDDisplay.h
+        src/helpers/ui/OLEDDisplayFonts.cpp
+        src/helpers/ui/OLEDDisplayFonts.h
+        src/helpers/ui/SH1106Display.cpp
+        src/helpers/ui/SH1106Display.h
+        src/helpers/ui/SSD1306Display.cpp
+        src/helpers/ui/SSD1306Display.h
+        src/helpers/ui/ST7735Display.cpp
+        src/helpers/ui/ST7735Display.h
+        src/helpers/ui/ST7789Display.cpp
+        src/helpers/ui/ST7789Display.h
+        src/helpers/ui/ST7789LCDDisplay.cpp
+        src/helpers/ui/ST7789LCDDisplay.h
+        src/helpers/ui/ST7789Spi.h
+        src/helpers/ui/UIScreen.h
+        src/helpers/AbstractBridge.h
+        src/helpers/AdvertDataHelpers.cpp
+        src/helpers/AdvertDataHelpers.h
+        src/helpers/ArduinoHelpers.h
+        src/helpers/ArduinoSerialInterface.cpp
+        src/helpers/ArduinoSerialInterface.h
+        src/helpers/AutoDiscoverRTCClock.cpp
+        src/helpers/AutoDiscoverRTCClock.h
+        src/helpers/BaseChatMesh.cpp
+        src/helpers/BaseChatMesh.h
+        src/helpers/BaseSerialInterface.h
+        src/helpers/ChannelDetails.h
+        src/helpers/ClientACL.cpp
+        src/helpers/ClientACL.h
+        src/helpers/CommonCLI.cpp
+        src/helpers/CommonCLI.h
+        src/helpers/ContactInfo.h
+        src/helpers/ESP32Board.cpp
+        src/helpers/ESP32Board.h
+        src/helpers/IdentityStore.cpp
+        src/helpers/IdentityStore.h
+        src/helpers/MeshadventurerBoard.h
+        src/helpers/RefCountedDigitalPin.h
+        src/helpers/RegionMap.cpp
+        src/helpers/RegionMap.h
+        src/helpers/SensorManager.h
+        src/helpers/SimpleMeshTables.h
+        src/helpers/StaticPoolPacketManager.cpp
+        src/helpers/StaticPoolPacketManager.h
+        src/helpers/StatsFormatHelper.h
+        src/helpers/TransportKeyStore.cpp
+        src/helpers/TransportKeyStore.h
+        src/helpers/TxtDataHelpers.cpp
+        src/helpers/TxtDataHelpers.h
+        src/Dispatcher.cpp
+        src/Dispatcher.h
+        src/Identity.cpp
+        src/Identity.h
+        src/Mesh.cpp
+        src/Mesh.h
+        src/MeshCore.h
+        src/Packet.cpp
+        src/Packet.h
+        src/Utils.cpp
+        src/Utils.h
+        variants/ebyte_eora_s3/target.cpp
+        variants/ebyte_eora_s3/target.h
+        variants/generic-e22/target.cpp
+        variants/generic-e22/target.h
+        variants/generic-e22/variant.h
+        variants/generic_espnow/target.cpp
+        variants/generic_espnow/target.h
+        variants/heltec_ct62/HT-CT62Board.h
+        variants/heltec_ct62/target.cpp
+        variants/heltec_ct62/target.h
+        variants/heltec_e213/HeltecE213Board.cpp
+        variants/heltec_e213/HeltecE213Board.h
+        variants/heltec_e213/pins_arduino.h
+        variants/heltec_e213/target.cpp
+        variants/heltec_e213/target.h
+        variants/heltec_e290/HeltecE290Board.cpp
+        variants/heltec_e290/HeltecE290Board.h
+        variants/heltec_e290/pins_arduino.h
+        variants/heltec_e290/target.cpp
+        variants/heltec_e290/target.h
+        variants/heltec_mesh_solar/MeshSolarBoard.cpp
+        variants/heltec_mesh_solar/MeshSolarBoard.h
+        variants/heltec_mesh_solar/target.cpp
+        variants/heltec_mesh_solar/target.h
+        variants/heltec_mesh_solar/variant.cpp
+        variants/heltec_mesh_solar/variant.h
+        variants/heltec_t114/T114Board.cpp
+        variants/heltec_t114/T114Board.h
+        variants/heltec_t114/target.cpp
+        variants/heltec_t114/target.h
+        variants/heltec_t114/variant.cpp
+        variants/heltec_t114/variant.h
+        variants/heltec_t190/HeltecT190Board.cpp
+        variants/heltec_t190/HeltecT190Board.h
+        variants/heltec_t190/pins_arduino.h
+        variants/heltec_t190/target.cpp
+        variants/heltec_t190/target.h
+        variants/heltec_tracker/target.cpp
+        variants/heltec_tracker/target.h
+        variants/heltec_tracker_v2/HeltecTrackerV2Board.cpp
+        variants/heltec_tracker_v2/HeltecTrackerV2Board.h
+        variants/heltec_tracker_v2/pins_arduino.h
+        variants/heltec_tracker_v2/target.cpp
+        variants/heltec_tracker_v2/target.h
+        variants/heltec_v2/HeltecV2Board.h
+        variants/heltec_v2/target.cpp
+        variants/heltec_v2/target.h
+        variants/heltec_v3/HeltecV3Board.h
+        variants/heltec_v3/target.cpp
+        variants/heltec_v3/target.h
+        variants/heltec_v4/HeltecV4Board.cpp
+        variants/heltec_v4/HeltecV4Board.h
+        variants/heltec_v4/pins_arduino.h
+        variants/heltec_v4/target.cpp
+        variants/heltec_v4/target.h
+        variants/heltec_wireless_paper/target.cpp
+        variants/heltec_wireless_paper/target.h
+        variants/ikoka_nano_nrf/IkokaNanoNRFBoard.cpp
+        variants/ikoka_nano_nrf/IkokaNanoNRFBoard.h
+        variants/ikoka_nano_nrf/target.cpp
+        variants/ikoka_nano_nrf/target.h
+        variants/ikoka_nano_nrf/variant.cpp
+        variants/ikoka_nano_nrf/variant.h
+        variants/ikoka_stick_nrf/IkokaStickNRFBoard.cpp
+        variants/ikoka_stick_nrf/IkokaStickNRFBoard.h
+        variants/ikoka_stick_nrf/target.cpp
+        variants/ikoka_stick_nrf/target.h
+        variants/ikoka_stick_nrf/variant.cpp
+        variants/ikoka_stick_nrf/variant.h
+        variants/lilygo_t3s3/target.cpp
+        variants/lilygo_t3s3/target.h
+        variants/lilygo_t3s3_sx1276/target.cpp
+        variants/lilygo_t3s3_sx1276/target.h
+        variants/lilygo_tbeam_supreme_SX1262/target.cpp
+        variants/lilygo_tbeam_supreme_SX1262/target.h
+        variants/lilygo_tbeam_SX1262/target.cpp
+        variants/lilygo_tbeam_SX1262/target.h
+        variants/lilygo_tbeam_SX1276/target.cpp
+        variants/lilygo_tbeam_SX1276/target.h
+        variants/lilygo_tdeck/target.cpp
+        variants/lilygo_tdeck/target.h
+        variants/lilygo_tdeck/TDeckBoard.cpp
+        variants/lilygo_tdeck/TDeckBoard.h
+        variants/lilygo_techo/target.cpp
+        variants/lilygo_techo/target.h
+        variants/lilygo_techo/TechoBoard.cpp
+        variants/lilygo_techo/TechoBoard.h
+        variants/lilygo_techo/variant.cpp
+        variants/lilygo_techo/variant.h
+        variants/lilygo_techo_lite/target.cpp
+        variants/lilygo_techo_lite/target.h
+        variants/lilygo_techo_lite/TechoBoard.cpp
+        variants/lilygo_techo_lite/TechoBoard.h
+        variants/lilygo_techo_lite/variant.cpp
+        variants/lilygo_techo_lite/variant.h
+        variants/lilygo_tlora_c6/target.cpp
+        variants/lilygo_tlora_c6/target.h
+        variants/lilygo_tlora_v2_1/LilyGoTLoraBoard.h
+        variants/lilygo_tlora_v2_1/target.cpp
+        variants/lilygo_tlora_v2_1/target.h
+        variants/mesh_pocket/MeshPocket.cpp
+        variants/mesh_pocket/MeshPocket.h
+        variants/mesh_pocket/target.cpp
+        variants/mesh_pocket/target.h
+        variants/mesh_pocket/variant.cpp
+        variants/mesh_pocket/variant.h
+        variants/meshadventurer/target.cpp
+        variants/meshadventurer/target.h
+        variants/meshadventurer/variant.h
+        variants/minewsemi_me25ls01/MinewsemiME25LS01Board.cpp
+        variants/minewsemi_me25ls01/MinewsemiME25LS01Board.h
+        variants/minewsemi_me25ls01/NullDisplayDriver.h
+        variants/minewsemi_me25ls01/target.cpp
+        variants/minewsemi_me25ls01/target.h
+        variants/minewsemi_me25ls01/variant.cpp
+        variants/minewsemi_me25ls01/variant.h
+        variants/nano_g2_ultra/nano-g2.cpp
+        variants/nano_g2_ultra/nano-g2.h
+        variants/nano_g2_ultra/target.cpp
+        variants/nano_g2_ultra/target.h
+        variants/nano_g2_ultra/variant.cpp
+        variants/nano_g2_ultra/variant.h
+        variants/promicro/PromicroBoard.cpp
+        variants/promicro/PromicroBoard.h
+        variants/promicro/target.cpp
+        variants/promicro/target.h
+        variants/promicro/variant.cpp
+        variants/promicro/variant.h
+        variants/rak3x72/target.cpp
+        variants/rak3x72/target.h
+        variants/rak3x72/variant.h
+        variants/rak4631/RAK4631Board.cpp
+        variants/rak4631/RAK4631Board.h
+        variants/rak4631/target.cpp
+        variants/rak4631/target.h
+        variants/rak4631/variant.cpp
+        variants/rak4631/variant.h
+        variants/rak_wismesh_tag/RAKWismeshTagBoard.cpp
+        variants/rak_wismesh_tag/RAKWismeshTagBoard.h
+        variants/rak_wismesh_tag/target.cpp
+        variants/rak_wismesh_tag/target.h
+        variants/rak_wismesh_tag/variant.cpp
+        variants/rak_wismesh_tag/variant.h
+        variants/rpi_picow/PicoWBoard.cpp
+        variants/rpi_picow/PicoWBoard.h
+        variants/rpi_picow/target.cpp
+        variants/rpi_picow/target.h
+        variants/sensecap_indicator-espnow/SCIndicatorDisplay.h
+        variants/sensecap_indicator-espnow/target.cpp
+        variants/sensecap_indicator-espnow/target.h
+        variants/sensecap_solar/SenseCapSolarBoard.cpp
+        variants/sensecap_solar/SenseCapSolarBoard.h
+        variants/sensecap_solar/target.cpp
+        variants/sensecap_solar/target.h
+        variants/sensecap_solar/variant.cpp
+        variants/sensecap_solar/variant.h
+        variants/station_g2/StationG2Board.h
+        variants/station_g2/target.cpp
+        variants/station_g2/target.h
+        variants/t1000-e/t1000e_sensors.cpp
+        variants/t1000-e/t1000e_sensors.h
+        variants/t1000-e/T1000eBoard.cpp
+        variants/t1000-e/T1000eBoard.h
+        variants/t1000-e/target.cpp
+        variants/t1000-e/target.h
+        variants/t1000-e/variant.cpp
+        variants/t1000-e/variant.h
+        variants/tenstar_c3/target.cpp
+        variants/tenstar_c3/target.h
+        variants/thinknode_m1/target.cpp
+        variants/thinknode_m1/target.h
+        variants/thinknode_m1/ThinkNodeM1Board.cpp
+        variants/thinknode_m1/ThinkNodeM1Board.h
+        variants/thinknode_m1/variant.cpp
+        variants/thinknode_m1/variant.h
+        variants/thinknode_m2/pins_arduino.h
+        variants/thinknode_m2/target.cpp
+        variants/thinknode_m2/target.h
+        variants/thinknode_m2/ThinknodeM2Board.cpp
+        variants/thinknode_m2/ThinknodeM2Board.h
+        variants/thinknode_m2/variant.h
+        variants/tiny_relay/target.cpp
+        variants/tiny_relay/target.h
+        variants/tiny_relay/variant.h
+        variants/waveshare_rp2040_lora/target.cpp
+        variants/waveshare_rp2040_lora/target.h
+        variants/waveshare_rp2040_lora/WaveshareBoard.cpp
+        variants/waveshare_rp2040_lora/WaveshareBoard.h
+        variants/wio-e5-dev/target.cpp
+        variants/wio-e5-dev/target.h
+        variants/wio-e5-dev/variant.h
+        variants/wio-e5-mini/NullDisplayDriver.h
+        variants/wio-e5-mini/target.cpp
+        variants/wio-e5-mini/target.h
+        variants/wio-e5-mini/variant.h
+        variants/wio-tracker-l1/target.cpp
+        variants/wio-tracker-l1/target.h
+        variants/wio-tracker-l1/variant.cpp
+        variants/wio-tracker-l1/variant.h
+        variants/wio-tracker-l1/WioTrackerL1Board.cpp
+        variants/wio-tracker-l1/WioTrackerL1Board.h
+        variants/wio_wm1110/target.cpp
+        variants/wio_wm1110/target.h
+        variants/wio_wm1110/variant.cpp
+        variants/wio_wm1110/variant.h
+        variants/wio_wm1110/WioWM1110Board.cpp
+        variants/wio_wm1110/WioWM1110Board.h
+        variants/xiao_c3/target.cpp
+        variants/xiao_c3/target.h
+        variants/xiao_c3/XiaoC3Board.h
+        variants/xiao_c6/target.h
+        variants/xiao_c6/XiaoC6Board.cpp
+        variants/xiao_c6/XiaoC6Board.h
+        variants/xiao_nrf52/target.cpp
+        variants/xiao_nrf52/target.h
+        variants/xiao_nrf52/variant.cpp
+        variants/xiao_nrf52/variant.h
+        variants/xiao_nrf52/XiaoNrf52Board.cpp
+        variants/xiao_nrf52/XiaoNrf52Board.h
+        variants/xiao_rp2040/target.cpp
+        variants/xiao_rp2040/target.h
+        variants/xiao_rp2040/XiaoRP2040Board.cpp
+        variants/xiao_rp2040/XiaoRP2040Board.h
+        variants/xiao_s3_wio/target.cpp
+        variants/xiao_s3_wio/target.h
+        variants/xiao_s3_wio/XiaoS3WIOBoard.h)
